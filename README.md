@@ -53,4 +53,4 @@ THEN I am again presented with current and future conditions for that city
 
 
 
-![Alt_Text](https://github.com/cjsmith1988/Day-planner/blob/main/WeatherDashboardScreenGrab.PNG?raw=true)
+![Alt_Text](https://github.com/cjsmith1988/weather-dashboard/blob/main/WeatherDashboardScreenGrab.PNG?raw=true)
