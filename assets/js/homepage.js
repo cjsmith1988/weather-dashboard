@@ -130,8 +130,16 @@ var getUVIndex = function(lat, lon, city, date, tempCelc, humidity, wind, icon) 
                 console.log(data);
                 var UVIndex = (data.current.uvi).toFixed(2);
                 
+                for (var i = 1; i < 6; i++) {
+                    var card = i
+                    var fiveDayDate = new Date((data.daily[i].dt) * 1000);
+                    fiveDayDate = new Intl.DateTimeFormat('en-US').format(fiveDayDate);
+                    var fiveDayTempCelc = (data.daily[i].temp.day - 273.15).toFixed(2);
+                    var fiveDayHumidity = (data.daily[i].humidity).toFixed(0);
+                    var fiveDayIcon = data.daily[i].weather[0].icon;
+                    create5day(card, fiveDayDate, fiveDayTempCelc, fiveDayHumidity, fiveDayIcon);
+                };
                 createTodayWeather(city, date, tempCelc, humidity, wind, icon, UVIndex);
-                create5day(card, date, icon, temp, humidity);
             });
         } else {
         alert("Error: " + response.statusText);
@@ -141,6 +149,35 @@ var getUVIndex = function(lat, lon, city, date, tempCelc, humidity, wind, icon) 
         alert("Unable to get data");
     });
     
+};
+
+var create5day = function(card, fiveDayDate, fiveDayTempCelc, fiveDayHumidity, fiveDayIcon) {
+    //call DOM elements dynamically
+    var cardID = "#card-"+card;
+    var cardBodyID = "#card-"+card+"-info";
+    var cardEl = document.querySelector(cardID);
+    var cardBodyEl = document.querySelector(cardBodyID);
+    //clear the old contente
+    cardEl.removeChild(cardEl.childNodes[0]);
+    cardBodyEl.innerHTML = '';
+    //add elements to cards
+    var cardHeadEl = document.createElement("div");
+    cardHeadEl.classList = "card-header";
+    cardHeadEl.textContent = "("+fiveDayDate+")";
+    cardEl.insertBefore(cardHeadEl, cardEl.firstChild);
+    cardIconEl = document.createElement("img");
+    cardIconEl.classList = "d-inline";
+    cardIconEl.setAttribute("src", "http://openweathermap.org/img/wn/"+fiveDayIcon+"@2x.png");
+    cardIconEl.setAttribute("id", "icon");
+    cardTempEl = document.createElement("p");
+    cardTempEl.classList = "card-text";
+    cardTempEl.textContent = fiveDayTempCelc+" \u2103";
+    cardHumidityEl = document.createElement("p");
+    cardHumidityEl.classList = "card-text";
+    cardHumidityEl.textContent = "Hum: "+fiveDayHumidity;
+    cardBodyEl.appendChild(cardIconEl);
+    cardBodyEl.appendChild(cardTempEl);
+    cardBodyEl.appendChild(cardHumidityEl);
 };
 
 var createTodayWeather = function(city, date, tempCelc, humidity, wind, icon, UVIndex) {
@@ -162,15 +199,32 @@ var createTodayWeather = function(city, date, tempCelc, humidity, wind, icon, UV
     var windEl = document.createElement("span");
     windEl.classList = "d-block list-item no-back";
     windEl.textContent = "Wind Speed: "+wind+" MPH";
+
+
+    var uviLabelEl = document.createElement("span");
+    uviLabelEl.classList = "d-inline list-item no-back";
+    uviLabelEl.textContent = "UV Index: ";
     var uviEl = document.createElement("span");
-    uviEl.classList = "d-block list-item no-back";
-    uviEl.textContent = "UV Index: "+UVIndex;
+    uviEl.classList = "d-inline list-item no-back";
+    //create warning background for UVI
+    var UVWarning = "moderate";
+    if (UVIndex <= 2) {
+        UVWarning = "favorable";
+    } else if (UVIndex >= 8) {
+        UVWarning = "severe";
+    }; 
+    uviEl.setAttribute("id", UVWarning);
+    uviEl.textContent = UVIndex;
+
+
+
     todayContainerEl.appendChild(cityEl);
     todayContainerEl.appendChild(dateEl);
     todayContainerEl.appendChild(iconEl);
     todayContainerEl.appendChild(temperatureEl);
     todayContainerEl.appendChild(humidityEl);
     todayContainerEl.appendChild(windEl);
+    todayContainerEl.appendChild(uviLabelEl);
     todayContainerEl.appendChild(uviEl);
 };
 
