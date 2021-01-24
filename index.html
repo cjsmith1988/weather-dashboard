@@ -5,29 +5,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
   <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="./assets/css/style.css" />
   <title>Weather</title>
 </head>
-
-<body class="flex-column min-50-vh">
+<body class="flex-column">
   <header class="hero">
-    <h1 class="app-title"><i class="fab"></i> Weather</h1>
-    
+    <h1 class="app-title align-middle">Weather Dashboard</h1>
   </header>
 
-
-  <main class="flex-row justify-space-between">
-    <div class="col-12 col-md-4">
-     
+  <main class="flex-row justify-content-around">
+    <div class="col-12 col-md-4" id="col-left">
+      <div class="form">
+        <h3>Search for a City:</h3>
+        <form id="user-form">
+          <input name="city" id="city" type="text" autofocus="true" class="form-input" />
+          <button type="submit" class="btn btn-inline"><i class="fas fa-search-location"></i></button>
+        </form>
+      </div>
+      <div class="history">
+        <h3 class="subtitle">Previous cities searched: </h3>
+        <div id="cities-container" class="list-group"></div>
+      </div>
     </div>
-
-    <div class="col-12 col-md-8">
-     
+    <div class="col-12 col-md-8" id="col-right">
+      <div class="today" id="today-container">
+        <img class="start-image" src="./assets/images/simple-skyline-silhouette-5.png"></img>
+      </div>
+      <div class="future" id="future-container">
+        <h3>5 Day forcast: </h3>
+        <div class="flex-row justify-content-around">
+          <div class="col-12 col-md-3 card text-white bg-primary d-sm-block" id="card-1" style="max-width: 18%;">
+            <div class="card-body" id="card-1-info">
+            </div>
+          </div>
+          <div class="col-12 col-md-3 card text-white bg-primary d-sm-block" id="card-2" style="max-width: 18%;">
+            <div class="card-body" id="card-2-info">
+            </div>
+          </div>
+          <div class="col-12 col-md-3 card text-white bg-primary d-sm-block" id="card-3" style="max-width: 18%;">
+            <div class="card-body" id="card-3-info">
+            </div>
+          </div>
+          <div class="col-12 col-md-3 card text-white bg-primary d-sm-block" id="card-4" style="max-width: 18%;">
+            <div class="card-body" id="card-4-info">
+            </div>
+          </div>
+          <div class="col-12 col-md-3 card text-white bg-primary d-sm-block" id="card-5" style="max-width: 18%;">
+            <div class="card-body" id="card-5-info">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="./assets/js/homepage.js"></script>
 </body>
 
