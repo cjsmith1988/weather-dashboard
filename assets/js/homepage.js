@@ -1,6 +1,5 @@
 var citiesSearched = [];
 var UVIndex = 0;
-
 var userFormEl = document.querySelector("#user-form");
 var cityInputEl = document.querySelector("#city");
 var searchContainerEl = document.querySelector("#cities-container");
@@ -9,7 +8,6 @@ var weatherAPIKey = "39a3f471939cbc77529580ec155df895"
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
-    
     var city = cityInputEl.value.trim();
     todayContainerEl.innerHTML = '';
     createCityHistory(city);
@@ -49,7 +47,6 @@ var createCityHistory = function(city) {
     var cityEl = document.createElement("a");
     cityEl.classList = "list-item flex-row justify-space-between align-center";
     cityEl.setAttribute("data", city);
-    //cityEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
     // create a span element to hold repository name
     var cityNameEl = document.createElement("span");
     cityNameEl.textContent = city;
@@ -57,7 +54,7 @@ var createCityHistory = function(city) {
     cityEl.appendChild(cityNameEl);
     // append container to the dom
     searchContainerEl.insertBefore(cityEl, searchContainerEl.firstChild);
-    //searchContainerEl.appendChild(cityEl);
+
 };
 
 var saveCities = function() {
@@ -69,7 +66,6 @@ var saveCities = function() {
 
  var loadSearch = function () {   
     var savedCities = localStorage.getItem("citiesSearched");
-    // if there are no tasks, set tasks to an empty array and return out of the function
     if (!savedCities) {
         return false;
     }
@@ -79,7 +75,6 @@ var saveCities = function() {
     citiesSearched = savedCities;
     // loop through savedTasks array
     for (var i = 0; i < 10; i++) {
-        // pass each task object into the `createTaskEl()` function
         if(citiesSearched[9-i]){
             createCityHistory(citiesSearched[9-i]);
         };       
@@ -112,7 +107,6 @@ var getTodayWeather = function(city) {
         }
     })
     .catch(function(error) {
-        // Notice this `.catch()` getting chained onto the end of the `.then()` method
         alert("Unable to get data");
     });
 };
@@ -215,9 +209,6 @@ var createTodayWeather = function(city, date, tempCelc, humidity, wind, icon, UV
     }; 
     uviEl.setAttribute("id", UVWarning);
     uviEl.textContent = UVIndex;
-
-
-
     todayContainerEl.appendChild(cityEl);
     todayContainerEl.appendChild(dateEl);
     todayContainerEl.appendChild(iconEl);
@@ -227,7 +218,6 @@ var createTodayWeather = function(city, date, tempCelc, humidity, wind, icon, UV
     todayContainerEl.appendChild(uviLabelEl);
     todayContainerEl.appendChild(uviEl);
 };
-
 
 loadSearch();
 userFormEl.addEventListener("submit", formSubmitHandler);
